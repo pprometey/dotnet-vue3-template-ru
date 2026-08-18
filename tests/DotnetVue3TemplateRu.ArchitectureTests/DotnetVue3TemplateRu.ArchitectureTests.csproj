@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <EnableMicrosoftTestingPlatformRunner>true</EnableMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="NetArchTest.Rules" />
+    <PackageReference Include="coverlet.collector" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Ссылки на каждый слой: арх-тестам нужен якорный тип в каждой сборке для анализа. -->
+    <ProjectReference Include="..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Domain\DotnetVue3TemplateRu.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Application\DotnetVue3TemplateRu.Core.Application.csproj" />
+    <ProjectReference Include="..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Infrastructure\DotnetVue3TemplateRu.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\apps\backend\DotnetVue3TemplateRu.Api\DotnetVue3TemplateRu.Api.csproj" />
+  </ItemGroup>
+</Project>

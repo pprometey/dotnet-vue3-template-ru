@@ -1,0 +1,13 @@
+# Если в индексе только docs/, пропускаем lint и форматирование.
+staged_files=$(git diff --cached --name-only --diff-filter=ACMR)
+if [ -n "$staged_files" ] && ! printf '%s\n' "$staged_files" | grep -qv '^docs/'; then
+  echo "Изменения затрагивают только docs/, пропускаем lint и форматирование."
+  exit 0
+fi
+
+# Линт и автоформатирование только изменённого кода (nx affected).
+yarn nx affected -t lint --parallel=3
+yarn nx format:write
+# Переиндексируем файлы, отформатированные на предыдущем шаге.
+# --again трогает только то, что уже было в индексе, не подтягивая лишнего.
+git update-index --again

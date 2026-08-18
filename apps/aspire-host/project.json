@@ -1,0 +1,17 @@
+{
+  "name": "aspire-host",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run api-client:generate",
+          "yarn --cwd aspire-apphost run aspire:start"
+        ],
+        "parallel": false
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "service-defaults",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "dotnet build apps/backend/DotnetVue3TemplateRu.ServiceDefaults/DotnetVue3TemplateRu.ServiceDefaults.csproj -c Debug --no-dependencies"
+      }
+    }
+  }
+}

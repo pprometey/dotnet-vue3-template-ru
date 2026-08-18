@@ -1,0 +1,18 @@
+{
+  "notes": {
+    "title": "Demo slice: notes",
+    "hint": "A temporary section of the template. It shows the full path: form -> generated client -> API -> Wolverine -> EF Core -> PostgreSQL and back.",
+    "create": {
+      "text": "Note text",
+      "translationCulture": "Translation language",
+      "translation": "Translation, optional",
+      "submit": "Create"
+    },
+    "view": {
+      "title": "Created note",
+      "createdAt": "Created at",
+      "reload": "Reload",
+      "length": "Text length"
+    }
+  }
+}

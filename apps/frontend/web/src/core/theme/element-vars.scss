@@ -1,0 +1,14 @@
+// Переопределения переменных Element Plus.
+//
+// @forward, а не @use ... with: этот файл подмешивается в начало КАЖДОГО .scss
+// (css.preprocessorOptions.scss.additionalData). Конфигурировать модуль можно
+// только один раз за сборку, поэтому @use ... with из множества файлов дал бы
+// ошибку "module was already loaded". @forward задаёт конфигурацию один раз, а
+// повторные @use этого файла ничего не переконфигурируют.
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    "primary": (
+      "base": #2f6fdb,
+    ),
+  )
+);

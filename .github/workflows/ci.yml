@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # nx affected сравнивает с базовой веткой, поэтому нужна история, а не срез.
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Включить corepack
+        run: corepack enable
+
+      - name: Кэш yarn
+        uses: actions/cache@v4
+        with:
+          path: .yarn/cache
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: yarn-${{ runner.os }}-
+
+      - name: Установить зависимости
+        run: yarn install --immutable
+
+      # Сборка решения целиком, а не по проектам: только так ловится битый
+      # состав .slnx - несуществующий проект или неверный путь в нём.
+      - name: Собрать решение .NET
+        run: dotnet build *.slnx -c Debug
+
+      # Клиент Orval лежит в gitignored-каталоге, поэтому в свежем клоне его нет,
+      # а vue-tsc без него не находит ни модуль ./generated, ни экспорты пакета
+      # api-client. Таргет generate-from-spec зовёт только orval и берёт уже
+      # закоммиченную спеку - пересобирать бэкенд второй раз не нужно.
+      - name: Сгенерировать клиент API
+        run: yarn nx run api-client:generate-from-spec
+
+      - name: Линт
+        run: yarn nx run-many --target=lint --parallel=3
+
+      # aspire-apphost исключён: его tsc опирается на aspire-apphost/.aspire/modules,
+      # а этот каталог создаёт Aspire CLI при первом локальном aspire run.
+      - name: Собрать фронтенд
+        run: yarn nx run-many --target=build --parallel=3 --exclude=aspire-apphost
+
+      - name: Архитектурные тесты
+        run: yarn nx run architecture-tests:test
+
+      - name: Юнит-тесты слоёв
+        run: yarn nx run-many --target=test --projects=*-unit-tests
+
+      - name: Тесты фронтенда
+        run: yarn nx run web:test
+
+      # Testcontainers поднимает PostgreSQL; на ubuntu-раннерах Docker доступен.
+      - name: Интеграционные тесты
+        run: yarn nx run integration-tests:test
+
+      # OpenAPI-документ коммитится и служит контрактом для генерации клиента.
+      # Сборка выше его перегенерировала: если появился diff, значит контроллеры
+      # поменяли, а спеку не пересобрали. Локально это стережёт хук pre-push,
+      # но его обходит --no-verify, поэтому проверка продублирована здесь.
+      - name: Спека OpenAPI не разошлась
+        run: |
+          git diff --exit-code -- 'apps/backend/*/openapi/' \
+            || { echo "::error::OpenAPI-спека устарела. Пересоберите API и закоммитьте спеку."; exit 1; }

@@ -1,0 +1,15 @@
+{
+  "name": "core-application",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "implicitDependencies": ["core-domain"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "dotnet build libs/backend/core/DotnetVue3TemplateRu.Core.Application/DotnetVue3TemplateRu.Core.Application.csproj -c Debug --no-dependencies"
+      }
+    }
+  }
+}

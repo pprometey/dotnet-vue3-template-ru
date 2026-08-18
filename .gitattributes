@@ -1,0 +1,27 @@
+# Нормализуем все текстовые файлы к LF (в репозитории и рабочем дереве),
+# независимо от core.autocrlf на машине разработчика. Согласовано с .editorconfig (end_of_line = lf).
+* text=auto eol=lf
+
+# Windows-специфичные скрипты требуют CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Бинарные файлы: git не нормализует и не пытается показывать как текст в diff.
+# Стартовый набор; пополнять по мере появления ассетов во frontend.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.svg   text
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.otf   binary
+*.pdf   binary
+*.zip   binary
+*.gz    binary
+*.snk   binary
+*.dll   binary

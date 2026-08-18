@@ -1,0 +1,20 @@
+{
+  "name": "@dotnet-vue3-template-ru/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mocks": "./src/mocks/index.ts",
+    "./mocks/browser": "./src/mocks/browser.ts",
+    "./mocks/server": "./src/mocks/server.ts"
+  },
+  "peerDependencies": {
+    "@tanstack/vue-query": ">=5",
+    "axios": ">=1",
+    "vue": ">=3.5"
+  }
+}

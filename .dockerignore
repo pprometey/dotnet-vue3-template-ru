@@ -1,0 +1,14 @@
+# Build artifacts and local state - keep the Docker build context small and
+# reproducible (shared by the backend and frontend image builds).
+**/bin
+**/obj
+**/node_modules
+**/dist
+.git
+.github
+.aspire
+**/.nx
+.yarn
+.vs
+.vscode
+libs/frontend/api-client/src/generated

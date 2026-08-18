@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/apps/">
+    <Folder Name="/apps/backend/">
+      <Project Path="apps/backend/DotnetVue3TemplateRu.Api/DotnetVue3TemplateRu.Api.csproj" />
+      <Project Path="apps/backend/DotnetVue3TemplateRu.ServiceDefaults/DotnetVue3TemplateRu.ServiceDefaults.csproj" />
+    </Folder>
+  </Folder>
+  <Folder Name="/libs/">
+    <Folder Name="/libs/backend/">
+      <Folder Name="/libs/backend/core/">
+        <Project Path="libs/backend/core/DotnetVue3TemplateRu.Core.Domain/DotnetVue3TemplateRu.Core.Domain.csproj" />
+        <Project Path="libs/backend/core/DotnetVue3TemplateRu.Core.Application/DotnetVue3TemplateRu.Core.Application.csproj" />
+        <Project Path="libs/backend/core/DotnetVue3TemplateRu.Core.Infrastructure/DotnetVue3TemplateRu.Core.Infrastructure.csproj" />
+      </Folder>
+    </Folder>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DotnetVue3TemplateRu.ArchitectureTests/DotnetVue3TemplateRu.ArchitectureTests.csproj" />
+    <Project Path="tests/DotnetVue3TemplateRu.IntegrationTests/DotnetVue3TemplateRu.IntegrationTests.csproj" />
+    <Project Path="tests/DotnetVue3TemplateRu.Api.UnitTests/DotnetVue3TemplateRu.Api.UnitTests.csproj" />
+    <Project Path="tests/DotnetVue3TemplateRu.Core.Application.UnitTests/DotnetVue3TemplateRu.Core.Application.UnitTests.csproj" />
+    <Project Path="tests/DotnetVue3TemplateRu.Core.Infrastructure.UnitTests/DotnetVue3TemplateRu.Core.Infrastructure.UnitTests.csproj" />
+  </Folder>
+</Solution>

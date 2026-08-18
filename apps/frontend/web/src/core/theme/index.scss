@@ -1,0 +1,26 @@
+// Полная сборка стилей Element Plus. Переопределённые переменные приезжают сюда
+// из element-vars.scss через additionalData - то есть до этой строки, поэтому
+// index.scss собирается уже с ними.
+@use "element-plus/theme-chalk/src/index.scss" as *;
+
+:root {
+  --fl-page-max-width: 960px;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  background: var(--el-bg-color-page);
+  color: var(--el-text-color-primary);
+}

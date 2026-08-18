@@ -1,0 +1,32 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@pages/*": ["src/pages/*"],
+      "@dotnet-vue3-template-ru/api-client": [
+        "../../../libs/frontend/api-client/src/index.ts"
+      ],
+      "@dotnet-vue3-template-ru/api-client/mocks": [
+        "../../../libs/frontend/api-client/src/mocks/index.ts"
+      ],
+      "@dotnet-vue3-template-ru/api-client/mocks/browser": [
+        "../../../libs/frontend/api-client/src/mocks/browser.ts"
+      ],
+      "@dotnet-vue3-template-ru/api-client/mocks/server": [
+        "../../../libs/frontend/api-client/src/mocks/server.ts"
+      ]
+    }
+  },
+  // vitest.config.ts не входит: vitest тянет собственную копию Vite, и типы
+  // плагинов двух копий несовместимы. Проверять конфиг тестов сборкой приложения
+  // незачем - его ошибки всплывут при первом же прогоне тестов.
+  "include": ["src/**/*.ts", "src/**/*.vue", "vite.config.ts"]
+}

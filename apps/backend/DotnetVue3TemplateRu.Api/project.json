@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": [
+    "core-application",
+    "core-infrastructure",
+    "service-defaults"
+  ],
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet run --project apps/backend/DotnetVue3TemplateRu.Api/DotnetVue3TemplateRu.Api.csproj"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "dotnet build apps/backend/DotnetVue3TemplateRu.Api/DotnetVue3TemplateRu.Api.csproj -c Debug --no-dependencies"
+      }
+    }
+  }
+}

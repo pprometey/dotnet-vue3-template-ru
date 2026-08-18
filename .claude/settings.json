@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build *)",
+      "Bash(dotnet test tests/DotnetVue3TemplateRu.ArchitectureTests/DotnetVue3TemplateRu.ArchitectureTests.csproj*)",
+      "Bash(docker --version *)",
+      "Bash(docker info *)",
+      "Bash(npm view *)"
+    ]
+  }
+}

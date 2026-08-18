@@ -1,0 +1,12 @@
+{
+  "name": "@dotnet-vue3-template-ru/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@dotnet-vue3-template-ru/api-client": "workspace:*"
+  }
+}

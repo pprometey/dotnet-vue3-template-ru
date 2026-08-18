@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetVue3TemplateRu.Core.Application\DotnetVue3TemplateRu.Core.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Юнит-тесты internal-типов инфраструктуры. -->
+    <InternalsVisibleTo Include="DotnetVue3TemplateRu.Core.Infrastructure.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!-- Ядро EF Core явно и без PrivateAssets: иначе потребителям этой сборки
+         (тестовым проектам) доставалась бы версия от провайдера - ниже той, против
+         которой Infrastructure скомпилирована. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <!-- snake_case в схеме: ADR-0007. -->
+    <PackageReference Include="EFCore.NamingConventions" />
+    <PackageReference Include="WolverineFx.EntityFrameworkCore" />
+    <PackageReference Include="WolverineFx.Postgresql" />
+  </ItemGroup>
+
+</Project>

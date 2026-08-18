@@ -1,0 +1,15 @@
+{
+  "name": "core-infrastructure",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "implicitDependencies": ["core-application"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "dotnet build libs/backend/core/DotnetVue3TemplateRu.Core.Infrastructure/DotnetVue3TemplateRu.Core.Infrastructure.csproj -c Debug --no-dependencies"
+      }
+    }
+  }
+}

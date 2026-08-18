@@ -1,0 +1,19 @@
+{
+  "//": "Образец личного оверрайда. Скопировать в appsettings.Local.json (он вне git) и оставить только те секции, которые действительно нужно перебить. Файл подключается последним и перебивает всё, включая значения, которые подставляет Aspire. Реестр приватных файлов - docs/guides/local-configuration.md.",
+
+  "//ConnectionStrings": "Своя база вместо поднятой Aspire. Пароль локального контейнера задан в aspire-apphost/apphost.mts.",
+  "ConnectionStrings": {
+    "dotnet-vue3-template-ru-db": "Host=localhost;Port=5432;Database=dotnet-vue3-template-ru-db;Username=postgres;Password=postgres-dev"
+  },
+
+  "//Jwt": "Свой провайдер идентичности вместо контейнера Logto. Authority - адрес выдачи токенов, Audience - индикатор ресурса API.",
+  "Jwt": {
+    "Authority": "http://localhost:3481/oidc",
+    "Audience": "https://api.dotnet-vue3-template-ru.local"
+  },
+
+  "//Cors": "Нужен, только если SPA поднята не на порту 5173.",
+  "Cors": {
+    "AllowedOrigins": ["http://localhost:5173"]
+  }
+}

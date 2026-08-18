@@ -1,0 +1,4 @@
+# Сгенерированный OpenAPI-контракт: его пишет dotnet (OpenApiGenerateDocumentsOnBuild).
+# prettier не должен его переформатировать - иначе закоммиченная версия вечно
+# расходится с регенерируемой, и drift-guard (pre-push / CI) падает на каждом пуше.
+apps/backend/DotnetVue3TemplateRu.Api/openapi/

@@ -1,0 +1,30 @@
+{
+  "name": "api-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/api-client/src",
+  "projectType": "library",
+  "targets": {
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "dotnet build apps/backend/DotnetVue3TemplateRu.Api/DotnetVue3TemplateRu.Api.csproj",
+          "orval --config ./libs/frontend/api-client/orval.config.ts"
+        ],
+        "parallel": false
+      }
+    },
+    "generate-from-spec": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "orval --config ./libs/frontend/api-client/orval.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint libs/frontend/api-client/src"
+      }
+    }
+  }
+}

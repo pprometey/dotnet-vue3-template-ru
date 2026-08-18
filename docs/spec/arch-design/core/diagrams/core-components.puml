@@ -1,0 +1,50 @@
+@startuml core-components
+!include <C4/C4_Component>
+
+LAYOUT_TOP_DOWN()
+
+AddComponentTag("core", $bgColor="#d4e6ff", $fontColor="#12395f", $borderColor="#4a86c8", $legendText="Ядро, общее для всех модулей")
+AddComponentTag("port", $bgColor="#eaeaea", $fontColor="#333333", $borderColor="#888888", $legendText="Шов (порт): контракт без привязки к провайдеру")
+AddComponentTag("adapter", $bgColor="#e1d5e7", $fontColor="#4b2e5e", $borderColor="#9673a6", $legendText="Реализация шва")
+AddComponentTag("demo", $bgColor="#d5e8d4", $fontColor="#274e13", $borderColor="#82b366", $legendText="Демо-слайс (временный)")
+
+title Компоненты модуля Core (shared kernel)
+
+Container_Ext(modules, "Предметные модули", "Собственные сущности и операции - потребляют Core сверху вниз")
+
+Container_Boundary(core, "Core") {
+  Component(userctx, "Идентичность пользователя", "IUserContext / RequestUserContext", "Кто сделал запрос: UserId - значение claim sub. Ни прав, ни профиля: права решает домен", $tags="core")
+  Component(config, "Конфигурация", "CultureOptions / IOptions", "Штатный конвейер .NET: appsettings, переменные окружения", $tags="core")
+  Component(errors, "Обработка ошибок", "DomainException / ErrorCodes / Result", "Доменные ошибки с кодами; текст резолвится на границе Api", $tags="core")
+  Component(loc, "Локализация контента", "LocalizationEntity / ConfigureLocalization", "Таблица переводов + инлайн-дефолт", $tags="core")
+  Component(softdel, "Мягкое удаление", "ISoftDeletable / интерцептор / query filter", "Строка скрывается из выборок, но остаётся в истории", $tags="core")
+  Component(persist, "EF-плюминг", "DotnetVue3TemplateRuDbContext / репозитории / миграции", "Персистентность; DbContext как unit of work; snake_case", $tags="core")
+  Component(msg, "Шина и durability", "IMessageBus / MessagingProfile / UseDotnetVue3TemplateRuDurability", "Wolverine: Solo + message store в схеме wolverine", $tags="core")
+  Component(demo, "Демо-слайс", "Note / Ping", "Note: HTTP -> Wolverine -> EF -> БД; Ping: Wolverine без БД", $tags="demo")
+
+  Component(port_usr, "IUserContextResolver", "порт", "Разбор claims -> UserContextSnapshot", $tags="port")
+}
+
+Container_Boundary(infra, "Core.Infrastructure - реализации") {
+  Component(std_usr, "StandardClaimsUserContextResolver", "реализует IUserContextResolver", "Читает claim sub, запасной вариант - ClaimTypes.NameIdentifier", $tags="adapter")
+}
+
+Container_Boundary(apiedge, "Api - граница") {
+  Component(jwt, "AddJwtBearer", "Authority + Audience", "Проверка подписи по JWKS; симметричного ключа нет", $tags="adapter")
+  Component(mw, "UserContextMiddleware", "после UseAuthentication", "Прогоняет claims через резолвер, кладёт контекст в HttpContext", $tags="adapter")
+}
+
+System_Ext(idp, "Провайдер идентичности", "OIDC; эмитент JWT, отдаёт JWKS")
+ContainerDb_Ext(db, "dotnet-vue3-template-ru-db", "PostgreSQL")
+
+Rel_L(modules, core, "Потребляют фундамент", "IUserContext, IOptions, IMessageBus, ErrorCodes, ConfigureLocalization")
+Rel(userctx, port_usr, "Заполняется через")
+Rel_U(std_usr, port_usr, "Реализует")
+Rel(mw, port_usr, "Вызывает на каждый запрос")
+Rel(jwt, idp, "Забирает открытые ключи", "JWKS")
+Rel(persist, db, "Читает/пишет", "EF Core")
+Rel(msg, db, "Message store", "схема wolverine")
+
+SHOW_LEGEND()
+
+@enduml

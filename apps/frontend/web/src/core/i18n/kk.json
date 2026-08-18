@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "DotnetVue3TemplateRu",
+    "language": "Тіл",
+    "signIn": "Кіру",
+    "signOut": "Шығу",
+    "loading": "Жүктелуде",
+    "notFound": "Бет табылмады"
+  }
+}

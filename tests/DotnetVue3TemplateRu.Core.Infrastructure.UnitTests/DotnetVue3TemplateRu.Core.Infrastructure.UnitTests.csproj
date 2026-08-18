@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <EnableMicrosoftTestingPlatformRunner>true</EnableMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="coverlet.collector" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Только проверяемый слой. Типы Application доезжают транзитивно, потому что
+         на них ссылается сама Infrastructure. -->
+    <ProjectReference Include="..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Infrastructure\DotnetVue3TemplateRu.Core.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

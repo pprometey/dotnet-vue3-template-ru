@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Build-time экспорт OpenAPI-документа: источник для Orval (ADR 0026). -->
+  <PropertyGroup>
+    <OpenApiGenerateDocumentsOnBuild>true</OpenApiGenerateDocumentsOnBuild>
+    <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)/openapi</OpenApiDocumentsDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Версионирование API по URL-сегменту. Один общий OpenAPI-документ строит
+         нативный Microsoft.AspNetCore.OpenApi (ShouldInclude), отдельный мост не нужен. -->
+    <PackageReference Include="Asp.Versioning.Mvc" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Server">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <!-- Scalar: интерактивный API UI поверх нативного OpenAPI (только dev) -->
+    <PackageReference Include="Scalar.AspNetCore" />
+    <PackageReference Include="WolverineFx" />
+    <PackageReference Include="WolverineFx.EntityFrameworkCore" />
+    <PackageReference Include="WolverineFx.FluentValidation" />
+    <PackageReference Include="WolverineFx.RuntimeCompilation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Application\DotnetVue3TemplateRu.Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\libs\backend\core\DotnetVue3TemplateRu.Core.Infrastructure\DotnetVue3TemplateRu.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\DotnetVue3TemplateRu.ServiceDefaults\DotnetVue3TemplateRu.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

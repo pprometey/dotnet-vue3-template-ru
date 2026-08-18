@@ -1,0 +1,5 @@
+﻿{
+  Id: {Scrubbed},
+  Text: Snapshot test note,
+  CreatedAt: {Scrubbed}
+}

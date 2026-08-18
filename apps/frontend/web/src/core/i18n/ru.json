@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "DotnetVue3TemplateRu",
+    "language": "Язык",
+    "signIn": "Войти",
+    "signOut": "Выйти",
+    "loading": "Загрузка",
+    "notFound": "Страница не найдена"
+  }
+}

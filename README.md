@@ -30,7 +30,7 @@ cd my-app && rm -rf .git
 | Frontend       | Vue 3, Vite, Pinia, Vue Router, TanStack Query, Element Plus                   |
 | Контракт API   | OpenAPI (нативный .NET) -> Orval -> TS-клиент с vue-query                      |
 | Монорепо       | Nx + yarn workspaces                                                           |
-| Оркестрация    | .NET Aspire, AppHost на TypeScript                                             |
+| Оркестрация    | Aspire, AppHost на TypeScript                                             |
 | Тесты          | TUnit + Testcontainers + Respawn + Verify; Vitest + MSW                        |
 
 ## Требования
